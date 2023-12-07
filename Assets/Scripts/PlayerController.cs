@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using Unity.Netcode;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [SerializeField]
     private float walkSpeed;
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
+    NetworkVariable<int> randomValue = new NetworkVariable<int>(1,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(OwnerClientId + "; random value: " + randomValue.Value);
+        if (!IsOwner) return;
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            randomValue.Value = Random.Range(0, 100);
+        }
         Move();
         CameraRotation();
         CharacterRotation();
@@ -61,5 +70,30 @@ public class PlayerController : MonoBehaviour
         float rotationY = Input.GetAxisRaw("Mouse X");
         Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * lookSensitivity;
         rb.MoveRotation(rb.rotation * Quaternion.Euler(characterRotationY));
+    }
+
+    public override void OnNetworkSpawn()
+    {
+       if(!IsServer && IsOwner)
+        {
+            
+        }
+    }
+
+    [ClientRpc]
+    void TestClientRpc(int value, ulong sourceNetworkObjectId)
+    {
+        Debug.Log($"Client Received the RPC #{value} on Netwrok Object #{sourceNetworkObjectId}");
+        if(IsOwner)
+        {
+            TestServerRpc(value + 1, sourceNetworkObjectId);
+        }
+    }
+
+    [ServerRpc]    
+    void TestServerRpc(int value, ulong sourceNetworkObjectId)
+    {
+        Debug.Log($"Server Received the RPC #{value}, on NetworkObject #{sourceNetworkObjectId}");
+        TestClientRpc(value, sourceNetworkObjectId);
     }
 }
