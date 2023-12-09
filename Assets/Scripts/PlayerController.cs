@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using Unity.Netcode;
+using UnityEditor.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -32,11 +33,12 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(OwnerClientId + "; random value: " + randomValue.Value);
         if (!IsOwner) return;
         if(Input.GetKeyDown(KeyCode.T))
         {
             randomValue.Value = Random.Range(0, 100);
+            Debug.Log(OwnerClientId + "; random value: " + randomValue.Value);
+
         }
         Move();
         CameraRotation();
@@ -52,7 +54,9 @@ public class PlayerController : NetworkBehaviour
         Vector3 moveVertical = transform.forward * moveDZ;
         Vector3 velocity = (moveHorizontal + moveVertical).normalized * walkSpeed;
 
-        rb.MovePosition(transform.position + velocity * Time.deltaTime);
+        transform.position += (velocity * Time.deltaTime);
+
+        //rb.MovePosition(transform.position + velocity * Time.deltaTime);
     }
 
     private void CameraRotation()
@@ -74,9 +78,9 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-       if(!IsServer && IsOwner)
+        if (!IsOwner)
         {
-            
+            Destroy(mainCam);
         }
     }
 
