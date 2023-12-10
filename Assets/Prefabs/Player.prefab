@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1598193127
+  GlobalObjectIdHash: 3909553501
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -265,6 +265,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
+  runSpeed: 10
+  crouchSpeed: 1
+  jumpForce: 4
+  courchPosY: 0
   lookSensitivity: 2
   cameraRotationLimit: 45
   mainCam: {fileID: 7458587246772069353}
