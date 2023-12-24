@@ -45,6 +45,7 @@ public class PlayerController : NetworkBehaviour
     //ÄÄÆ÷³ÍÆ®
     [SerializeField]
     private Camera mainCam;
+    private Transform mainCamTransform;
     [SerializeField]
     private Camera weaponCam;
 
@@ -60,6 +61,7 @@ public class PlayerController : NetworkBehaviour
         applySpeed = walkSpeed;
         originPosY = mainCam.transform.localPosition.y;
         applyCrouchPosY = originPosY;
+        mainCamTransform = mainCam.transform;
     }
 
     // Update is called once per frame
@@ -92,7 +94,9 @@ public class PlayerController : NetworkBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
-        if(isCrouch)
+        if (IsOwner)
+            SendServerCrouch(new ServerRpcParams());
+        if (isCrouch)
         {
             applySpeed = crouchSpeed;
             applyCrouchPosY = courchPosY;
@@ -107,18 +111,18 @@ public class PlayerController : NetworkBehaviour
 
     IEnumerator CrouchCorutine()
     {
-        float posY = mainCam.transform.localPosition.y;
+        float posY = mainCamTransform.localPosition.y;
         int count = 0;
         while(posY != applyCrouchPosY)
         {
             count++;
             posY = Mathf.Lerp(posY, applyCrouchPosY,0.3f);
-            mainCam.transform.localPosition = new Vector3(0, posY, 0);
+            mainCamTransform.localPosition = new Vector3(0, posY, 0);
             if (count > 15)
                 break;
             yield return null;
         }
-        mainCam.transform.localPosition = new Vector3(0, applyCrouchPosY, 0);
+        mainCamTransform.localPosition = new Vector3(0, applyCrouchPosY, 0);
 
     }
     private void IsGround()
@@ -209,22 +213,25 @@ public class PlayerController : NetworkBehaviour
                 Destroy(cam);
                 //Debug.Log("Destory "+cam.name);
             }
+            Destroy(mainCam.GetComponent<AudioListener>());
         }
     }
     [ClientRpc]
-    void TestClientRpc(int value, ulong sourceNetworkObjectId)
+    void SendClientCrouch(ulong sendId)
     {
-        Debug.Log($"Client Received the RPC #{value} on Netwrok Object #{sourceNetworkObjectId}");
-        if(IsOwner)
+        if(OwnerClientId == sendId && !IsOwner)
         {
-            TestServerRpc(value + 1, sourceNetworkObjectId);
+            Crouch();
         }
     }
 
     [ServerRpc]    
-    void TestServerRpc(int value, ulong sourceNetworkObjectId)
+    void SendServerCrouch(ServerRpcParams serverParams)
     {
-        Debug.Log($"Server Received the RPC #{value}, on NetworkObject #{sourceNetworkObjectId}");
-        TestClientRpc(value, sourceNetworkObjectId);
+        if(IsHost && OwnerClientId != serverParams.Receive.SenderClientId)
+        {
+            //Debug.Log("I must crouch!");
+        }
+        SendClientCrouch(serverParams.Receive.SenderClientId);
     }
 }

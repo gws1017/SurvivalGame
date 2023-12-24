@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class HandController : MonoBehaviour
+public class HandController : NetworkBehaviour
 {
     [SerializeField]
     private Hand currentWeapon;
@@ -15,6 +16,7 @@ public class HandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
         TryAttack();
     }
 
