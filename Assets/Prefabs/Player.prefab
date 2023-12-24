@@ -274,6 +274,7 @@ MonoBehaviour:
   lookSensitivity: 2
   cameraRotationLimit: 45
   mainCam: {fileID: 7458587246772069353}
+  weaponCam: {fileID: 5237166623797540248}
 --- !u!114 &8366083504496577492
 MonoBehaviour:
   m_ObjectHideFlags: 0

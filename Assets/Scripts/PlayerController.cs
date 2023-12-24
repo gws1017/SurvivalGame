@@ -45,6 +45,8 @@ public class PlayerController : NetworkBehaviour
     //ÄÄÆ÷³ÍÆ®
     [SerializeField]
     private Camera mainCam;
+    [SerializeField]
+    private Camera weaponCam;
 
     private Rigidbody rb;
 
@@ -202,10 +204,13 @@ public class PlayerController : NetworkBehaviour
         Cursor.visible = false;
         if (!IsOwner)
         {
-            Destroy(mainCam);
+            foreach (var cam in GetComponentsInChildren<Camera>())
+            {
+                Destroy(cam);
+                //Debug.Log("Destory "+cam.name);
+            }
         }
     }
-
     [ClientRpc]
     void TestClientRpc(int value, ulong sourceNetworkObjectId)
     {
