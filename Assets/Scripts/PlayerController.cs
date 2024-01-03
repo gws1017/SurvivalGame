@@ -95,7 +95,7 @@ public class PlayerController : NetworkBehaviour
     {
         isCrouch = !isCrouch;
         if (IsOwner)
-            SendServerCrouch(new ServerRpcParams());
+            SendCrouchServerRpc(new ServerRpcParams());
         if (isCrouch)
         {
             applySpeed = crouchSpeed;
@@ -217,7 +217,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
     [ClientRpc]
-    void SendClientCrouch(ulong sendId)
+    void SendCrouchClientRpc(ulong sendId)
     {
         if(OwnerClientId == sendId && !IsOwner)
         {
@@ -226,12 +226,12 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ServerRpc]    
-    void SendServerCrouch(ServerRpcParams serverParams)
+    void SendCrouchServerRpc(ServerRpcParams serverParams)
     {
         if(IsHost && OwnerClientId != serverParams.Receive.SenderClientId)
         {
             //Debug.Log("I must crouch!");
         }
-        SendClientCrouch(serverParams.Receive.SenderClientId);
+        SendCrouchClientRpc(serverParams.Receive.SenderClientId);
     }
 }
