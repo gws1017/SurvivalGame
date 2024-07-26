@@ -4915,7 +4915,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2760733402473722510}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5168,7 +5168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1598193127
+  GlobalObjectIdHash: 1085781632
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -5185,18 +5186,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3194981515929687321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4817bd1c794795b4e94f892959b8a0c1, type: 3}
+  m_Script: {fileID: 11500000, guid: bb22ee020d632aa489e4a8d4acded99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 10
-  crouchSpeed: 1
+  walkSpeed: 7
+  runSpeed: 14
+  crouchSpeed: 5
   jumpForce: 4
   courchPosY: 0
   lookSensitivity: 2
   cameraRotationLimit: 45
   mainCam: {fileID: 7458587246772069353}
-  weaponCam: {fileID: 0}
+  weaponCam: {fileID: 5237166623797540248}
 --- !u!114 &8366083504496577492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5209,6 +5210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -10285,12 +10287,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7672139006524889869}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a28a5bf4cd2242a2ec920237100dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c660ff670938634bb22cc86a0ff1c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 7445462127118983071}
+  currentWeapon: {fileID: 2328803549872345855}
 --- !u!114 &4326055061943234694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10300,7 +10302,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7672139006524889869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9342f5ba56c28c4288b0bb6b6766c50, type: 3}
+  m_Script: {fileID: 11500000, guid: ded5176b816194d40bcc994094a60600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentGun: {fileID: 6081523964676993965}
@@ -10495,15 +10497,12 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 3803be2d0bd3392429225b0d2c859937, type: 2}
+      objectReference: {fileID: 9100000, guid: 898755f7298a8db49976d689ed2ecfe9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 100002, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100014, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7445462127118983071}
     - targetCorrespondingSourceObject: {fileID: 100014, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2328803549872345855}
@@ -10518,26 +10517,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100014, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
   m_PrefabInstance: {fileID: 6977968410922117003}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7445462127118983071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6977968410922148133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b39ce0e97ecaab64ea6bf4bfc61e7a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: 
-  range: 3
-  damage: 1
-  workSpeed: 0
-  attackRecoveryTime: 0.4
-  attackFrontDelay: 0.5
-  attackDelay: 0.1
-  anim: {fileID: 6977968410914722539}
 --- !u!114 &2328803549872345855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10547,11 +10526,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6977968410922148133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
+  m_Script: {fileID: 11500000, guid: c3041fc45f3dd814492ef6d72e9df5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
-  m_Animator: {fileID: 6977968410914722539}
+  weaponName: "\uB9E8\uC190"
+  range: 2
+  damage: 1
+  workSpeed: 0
+  attackRecoveryTime: 1
+  attackFrontDelay: 0.5
+  attackDelay: 0.1
+  anim: {fileID: 6977968410914722539}
 --- !u!4 &6977968410922515717 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400014, guid: fb990d907c1cc88408cab111a48f9614, type: 3}
@@ -10672,7 +10657,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: d589c4ae09440a74ea8a9f2ed73d4986, type: 2}
+      objectReference: {fileID: 9100000, guid: 6db1beb991b47fb4b9d71e1dde5403c4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10695,17 +10680,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7106876476448342598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b20bf9a2c1c43b4089e34bcf400b7d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cb94f6291a4f114ca3b95a16e1d6291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunName: SubMachineGun1
+  gunName: SubMachineGun
   range: 100
   accuracy: 0
   fireRate: 0.2
   reloadTime: 2
   damage: 30
-  reloadBulletCnt: 0
-  currentBulletCnt: 0
+  reloadBulletCnt: 30
+  currentBulletCnt: 30
   maxBulletCnt: 0
   carryBulletCnt: 0
   retroActionForce: 0
@@ -10713,7 +10698,7 @@ MonoBehaviour:
   fineSightOriginPos: {x: 0, y: 0, z: 0}
   anim: {fileID: 7106876476457873810}
   muzzleFlash: {fileID: 2511769871861706636}
-  fireSound: {fileID: 8300000, guid: 780cb5215d1fc9e45b5a8fbddd9ace4b, type: 3}
+  fireSound: {fileID: 8300000, guid: 225d500e955a835418623416f0ce5c80, type: 3}
 --- !u!4 &7106876476448775782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400020, guid: cf508b187df82eb41944d877a188d3b7, type: 3}

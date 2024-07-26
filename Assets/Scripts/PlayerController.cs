@@ -206,6 +206,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (!IsOwner)
         {
             foreach (var cam in GetComponentsInChildren<Camera>())

@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 77936528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad47b4c643fef814ead87cf4999214e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1357ccc2516796c42a41ed4dcd36b369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1271576977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe360d5c74985c54389b99a736db1879, type: 3}
+  m_Script: {fileID: 11500000, guid: 7eed6e08a5c0a92488bf9e7d8d878372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serverBtn: {fileID: 1465043151}
@@ -608,7 +608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 914146710
+  GlobalObjectIdHash: 2797084107
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -667,7 +668,7 @@ TerrainCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: c934a1fa64b398f478664d458f037c1c, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: b2dcafdebe5c2074babd11667fba213d, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1343064301
 Terrain:
@@ -678,7 +679,7 @@ Terrain:
   m_GameObject: {fileID: 1343064298}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: c934a1fa64b398f478664d458f037c1c, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: b2dcafdebe5c2074babd11667fba213d, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -1278,10 +1279,10 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 2007164847}
-    PlayerPrefab: {fileID: 3194981515929687321, guid: d9353319b30be4c4fa238828d2244288, type: 3}
+    PlayerPrefab: {fileID: 3194981515929687321, guid: f09750c0afd723f44876cbb699d2c7b0, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: 73d2580380d7d2b479feb02376ff8fa7, type: 2}
+      - {fileID: 11400000, guid: d3ad6d402af51fa468dee92a285dc2c7, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
