@@ -48,6 +48,7 @@ public class PlayerController : NetworkBehaviour
     private Transform mainCamTransform;
     [SerializeField]
     private Camera weaponCam;
+    private GunController gunController;
 
     private Rigidbody rb;
 
@@ -58,10 +59,13 @@ public class PlayerController : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        applySpeed = walkSpeed;
+        gunController = FindObjectOfType<GunController>();
+
+        mainCamTransform = mainCam.transform;
+
         originPosY = mainCam.transform.localPosition.y;
         applyCrouchPosY = originPosY;
-        mainCamTransform = mainCam.transform;
+        applySpeed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -162,6 +166,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (isCrouch)
             Crouch();
+        gunController.CancelFineSight();
 
         isRun = true;
         applySpeed = runSpeed;

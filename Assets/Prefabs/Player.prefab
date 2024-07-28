@@ -26,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2367714593264687774}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -2.909, y: 0.382, z: 0.403}
-  m_LocalScale: {x: 0.09999999, y: 0.10000001, z: 0.10000002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0002, y: 0.02046, z: -0.00066}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6523786673490738891}
-  m_Father: {fileID: 8749553661491586238}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_Father: {fileID: 7106876476448775778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2511769871861706636
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5013,7 +5013,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7106876476448775782}
-  - {fileID: 2116475555485444572}
   m_Father: {fileID: 5523086823822738890}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &3194981515929687321
@@ -10306,6 +10305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGun: {fileID: 6081523964676993965}
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!82 &8649848956516622437
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10657,10 +10657,13 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6db1beb991b47fb4b9d71e1dde5403c4, type: 2}
+      objectReference: {fileID: 9100000, guid: 546af7e104569604d94a9e619e635fb6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400016, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2116475555485444572}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100020, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
       insertIndex: -1
@@ -10689,16 +10692,21 @@ MonoBehaviour:
   fireRate: 0.2
   reloadTime: 2
   damage: 30
-  reloadBulletCnt: 30
-  currentBulletCnt: 30
+  reloadBulletCnt: 10
+  currentBulletCnt: 10
   maxBulletCnt: 0
-  carryBulletCnt: 0
-  retroActionForce: 0
-  retroActionFineSightForce: 0
-  fineSightOriginPos: {x: 0, y: 0, z: 0}
+  carryBulletCnt: 23
+  retroActionForce: 0.3
+  retroActionFineSightForce: 0.7
+  fineSightOriginPos: {x: 0.55, y: 0.335, z: -0.585}
   anim: {fileID: 7106876476457873810}
   muzzleFlash: {fileID: 2511769871861706636}
   fireSound: {fileID: 8300000, guid: 225d500e955a835418623416f0ce5c80, type: 3}
+--- !u!4 &7106876476448775778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400016, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
+  m_PrefabInstance: {fileID: 7106876476448376050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7106876476448775782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400020, guid: cf508b187df82eb41944d877a188d3b7, type: 3}
