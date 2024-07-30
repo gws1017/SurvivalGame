@@ -49,6 +49,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField]
     private Camera weaponCam;
     private GunController gunController;
+    private GameObject hud;
 
     private Rigidbody rb;
 
@@ -60,7 +61,9 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         gunController = FindObjectOfType<GunController>();
-
+        hud = GameObject.Find("Canvas").transform.Find("HUD").gameObject;
+        hud.SetActive(true);
+        hud.GetComponent<HUD>().gunController = gunController;
         mainCamTransform = mainCam.transform;
 
         originPosY = mainCam.transform.localPosition.y;

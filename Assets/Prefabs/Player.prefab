@@ -10691,13 +10691,13 @@ MonoBehaviour:
   gunName: SubMachineGun
   range: 100
   accuracy: 0
-  fireRate: 0.2
+  fireRate: 0.1
   reloadTime: 2
   damage: 30
-  reloadBulletCnt: 10
-  currentBulletCnt: 10
+  reloadBulletCnt: 30
+  currentBulletCnt: 30
   maxBulletCnt: 0
-  carryBulletCnt: 23
+  carryBulletCnt: 150
   retroActionForce: 0.3
   retroActionFineSightForce: 0.7
   fineSightOriginPos: {x: 0.55, y: 0.335, z: -0.585}
