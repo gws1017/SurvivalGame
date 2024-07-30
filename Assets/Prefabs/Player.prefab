@@ -10255,6 +10255,7 @@ GameObject:
   - component: {fileID: 4326055061943234694}
   - component: {fileID: 8649848956516622437}
   - component: {fileID: 2212049791731118824}
+  - component: {fileID: 4372212982424621942}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -10425,6 +10426,22 @@ MonoBehaviour:
   - {fileID: 2328803549872345855}
   gunController: {fileID: 4326055061943234694}
   handController: {fileID: 2458373826735061557}
+--- !u!114 &4372212982424621942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672139006524889869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575acc2c32b9e8c4b86094fb6113ec7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitPos: {x: 0.18, y: 0.1, z: 0}
+  fineSightLimitPos: {x: 0.005, y: 0.005, z: 0}
+  smoothSway: {x: 0.05, y: 0.03, z: 0}
+  gunController: {fileID: 4326055061943234694}
 --- !u!1001 &6977968410922117003
 PrefabInstance:
   m_ObjectHideFlags: 0
