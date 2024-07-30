@@ -151,7 +151,7 @@ public class PlayerController : NetworkBehaviour
     private void IsGround()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
-        crossHair.RunningAnimation(!isGround);
+        crossHair.JumpingAnimation(!isGround);
     }
 
     private void TryJump()

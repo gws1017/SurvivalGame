@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public string weaponName;
+    public string handName;
     public float range;
     public int damage;
     public float workSpeed;

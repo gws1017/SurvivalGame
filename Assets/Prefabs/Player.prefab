@@ -5188,7 +5188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb22ee020d632aa489e4a8d4acded99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
+  walkSpeed: 10
   runSpeed: 14
   crouchSpeed: 5
   jumpForce: 4
@@ -5196,7 +5196,6 @@ MonoBehaviour:
   lookSensitivity: 2
   cameraRotationLimit: 45
   mainCam: {fileID: 7458587246772069353}
-  weaponCam: {fileID: 5237166623797540248}
 --- !u!114 &8366083504496577492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10255,6 +10254,7 @@ GameObject:
   - component: {fileID: 2458373826735061557}
   - component: {fileID: 4326055061943234694}
   - component: {fileID: 8649848956516622437}
+  - component: {fileID: 2212049791731118824}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -10286,12 +10286,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7672139006524889869}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c660ff670938634bb22cc86a0ff1c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 2328803549872345855}
+  currentHand: {fileID: 0}
 --- !u!114 &4326055061943234694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10404,6 +10404,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2212049791731118824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672139006524889869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41388a2082926de4e8b30ac05d55778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: GUN
+  changeWeaponDelayTime: 0.1
+  changeWeaponEndDelayTime: 0.1
+  guns:
+  - {fileID: 6081523964676993965}
+  hands:
+  - {fileID: 2328803549872345855}
+  gunController: {fileID: 4326055061943234694}
+  handController: {fileID: 2458373826735061557}
 --- !u!1001 &6977968410922117003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10531,7 +10552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3041fc45f3dd814492ef6d72e9df5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: "\uB9E8\uC190"
+  handName: "\uB9E8\uC190"
   range: 2
   damage: 1
   workSpeed: 0
@@ -10690,7 +10711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: SubMachineGun
   range: 100
-  accuracy: 0
+  accuracy: 0.04
   fireRate: 0.1
   reloadTime: 2
   damage: 30
