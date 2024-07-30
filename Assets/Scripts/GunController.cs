@@ -20,8 +20,10 @@ public class GunController : MonoBehaviour
 
     private RaycastHit hitInfo;
 
+    //컴포넌트
     [SerializeField]
     private Camera Cam;
+    private CrossHair crossHair;
 
     //피격이펙트
     [SerializeField]
@@ -31,6 +33,7 @@ public class GunController : MonoBehaviour
     {
         originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
+        crossHair = FindObjectOfType<CrossHair>();
     }
 
     // Update is called once per frame
@@ -76,6 +79,7 @@ public class GunController : MonoBehaviour
     //발사 후 처리
     private void Shoot()
     {
+        crossHair.FireAnimation();
         currentGun.currentBulletCnt--;
         currentFireRate = currentGun.fireRate;
         PlaySE(currentGun.fireSound);
@@ -87,7 +91,13 @@ public class GunController : MonoBehaviour
 
     private void Hit()
     {
-        if(Physics.Raycast(Cam.transform.position, Cam.transform.forward,out hitInfo, currentGun.range))
+        float Accur = crossHair.GetAccuracy()+ crossHair.GetAccuracy();
+        float randAccurX = Random.Range(-Accur, Accur);
+        float randAccurY = Random.Range(-Accur, Accur);
+
+        if (Physics.Raycast(Cam.transform.position, Cam.transform.forward + 
+            new Vector3(randAccurX,randAccurY, 0f)
+            ,out hitInfo, currentGun.range))
         {
             GameObject clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
@@ -132,6 +142,14 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public void CancelReload()
+    {
+        if (isReload)
+        {
+            StopAllCoroutines();
+            isReload = false;
+        }
+    }
     //정조준 시도
     private void TryFineSight()
     {
@@ -153,6 +171,7 @@ public class GunController : MonoBehaviour
     {
         isFineSightMode = !isFineSightMode;
         currentGun.anim.SetBool("FineSightMode", isFineSightMode);
+        crossHair.FineSightAnimation(isFineSightMode);
 
         if(isFineSightMode)
         {
@@ -235,4 +254,8 @@ public class GunController : MonoBehaviour
     {
         return currentGun;
     }
+
+    public bool GetFineSightMode() { return isFineSightMode; }
+
+  
 }

@@ -10,7 +10,7 @@ public class PlayerController : NetworkBehaviour
     //속도
     [SerializeField]
     private float walkSpeed;
-    [SerializeField] 
+    [SerializeField]
     private float runSpeed;
     private float applySpeed;
     [SerializeField]
@@ -23,7 +23,11 @@ public class PlayerController : NetworkBehaviour
     private bool isRun = false;
     private bool isGround = true;
     private bool isCrouch = false;
+    private bool isWalk = false;
 
+    //움직임 체크용
+    private Vector3 prevPos;
+    private float checkTime = 0f;
     //앉기
     [SerializeField]
     private float courchPosY;
@@ -45,15 +49,16 @@ public class PlayerController : NetworkBehaviour
     //컴포넌트
     [SerializeField]
     private Camera mainCam;
+    private Rigidbody rb;
     private Transform mainCamTransform;
-    [SerializeField]
-    private Camera weaponCam;
     private GunController gunController;
+    private CrossHair crossHair;
+
+    private GameObject Canvas;
     private GameObject hud;
 
-    private Rigidbody rb;
 
-    NetworkVariable<int> randomValue = new NetworkVariable<int>(1,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+    NetworkVariable<int> randomValue = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     // Start is called before the first frame update
     void Start()
@@ -61,11 +66,15 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         gunController = FindObjectOfType<GunController>();
-        hud = GameObject.Find("Canvas").transform.Find("HUD").gameObject;
+        crossHair = FindObjectOfType<CrossHair>();
+
+        Canvas = GameObject.Find("Canvas");
+        hud = Canvas.transform.Find("HUD").gameObject;
         hud.SetActive(true);
         hud.GetComponent<HUD>().gunController = gunController;
-        mainCamTransform = mainCam.transform;
+        crossHair.gunController = gunController;
 
+        mainCamTransform = mainCam.transform;
         originPosY = mainCam.transform.localPosition.y;
         applyCrouchPosY = originPosY;
         applySpeed = walkSpeed;
@@ -75,24 +84,29 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        if(Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             randomValue.Value = Random.Range(0, 100);
             Debug.Log(OwnerClientId + "; random value: " + randomValue.Value);
 
         }
+
         IsGround();
+
         TryJump();
         TryRun();
         TryCrouch();
+
         Move();
+        MoveCheck();
+
         CameraRotation();
         CharacterRotation();
     }
 
     private void TryCrouch()
     {
-        if(Input.GetKeyDown (KeyCode.LeftControl)) 
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Crouch();
         }
@@ -101,6 +115,8 @@ public class PlayerController : NetworkBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
+        crossHair.CrouchingAnimation(isCrouch);
+
         if (IsOwner)
             SendCrouchServerRpc(new ServerRpcParams());
         if (isCrouch)
@@ -120,10 +136,10 @@ public class PlayerController : NetworkBehaviour
     {
         float posY = mainCamTransform.localPosition.y;
         int count = 0;
-        while(posY != applyCrouchPosY)
+        while (posY != applyCrouchPosY)
         {
             count++;
-            posY = Mathf.Lerp(posY, applyCrouchPosY,0.3f);
+            posY = Mathf.Lerp(posY, applyCrouchPosY, 0.3f);
             mainCamTransform.localPosition = new Vector3(0, posY, 0);
             if (count > 15)
                 break;
@@ -135,11 +151,12 @@ public class PlayerController : NetworkBehaviour
     private void IsGround()
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
+        crossHair.RunningAnimation(!isGround);
     }
 
     private void TryJump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGround) 
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             Jump();
         }
@@ -147,7 +164,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Jump()
     {
-        if(isCrouch)
+        if (isCrouch)
             Crouch();
 
         rb.velocity = transform.up * jumpForce;
@@ -155,11 +172,11 @@ public class PlayerController : NetworkBehaviour
 
     private void TryRun()
     {
-        if(Input.GetKey(KeyCode.LeftShift)) 
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             Running();
         }
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             RunningCancel();
         }
@@ -172,12 +189,14 @@ public class PlayerController : NetworkBehaviour
         gunController.CancelFineSight();
 
         isRun = true;
+        crossHair.RunningAnimation(isRun);
         applySpeed = runSpeed;
     }
 
     private void RunningCancel()
     {
         isRun = false;
+        crossHair.RunningAnimation(isRun);
         applySpeed = walkSpeed;
     }
     private void Move()
@@ -194,12 +213,32 @@ public class PlayerController : NetworkBehaviour
         rb.MovePosition(transform.position + velocity * Time.deltaTime);
     }
 
+    private void MoveCheck()
+    {
+        checkTime += Time.deltaTime;
+        if (!isRun && !isCrouch && isGround)
+        {
+            if (checkTime > 0.1f)
+            {
+                if (Vector3.Distance(prevPos, transform.position) >= 0.01f)
+                {
+                    isWalk = true;
+                    Debug.Log(Vector3.Distance(prevPos, transform.position));
+                }
+                else
+                    isWalk = false;
+                crossHair.WalkingAnimation(isWalk);
+                prevPos = transform.position;
+                checkTime = 0f;
+            }
+        }
+    }
     private void CameraRotation()
     {
         float rotationX = Input.GetAxisRaw("Mouse Y");
         float cameraRotationX = rotationX * lookSensitivity;
         currentCameraRotationX -= cameraRotationX;
-        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX,-cameraRotationLimit,cameraRotationLimit);
+        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
 
         mainCam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }
@@ -228,16 +267,16 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     void SendCrouchClientRpc(ulong sendId)
     {
-        if(OwnerClientId == sendId && !IsOwner)
+        if (OwnerClientId == sendId && !IsOwner)
         {
             Crouch();
         }
     }
 
-    [ServerRpc]    
+    [ServerRpc]
     void SendCrouchServerRpc(ServerRpcParams serverParams)
     {
-        if(IsHost && OwnerClientId != serverParams.Receive.SenderClientId)
+        if (IsHost && OwnerClientId != serverParams.Receive.SenderClientId)
         {
             //Debug.Log("I must crouch!");
         }
