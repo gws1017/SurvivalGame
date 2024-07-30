@@ -10286,7 +10286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7672139006524889869}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c660ff670938634bb22cc86a0ff1c60, type: 3}
   m_Name: 
@@ -10305,7 +10305,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGun: {fileID: 6081523964676993965}
-  originPos: {x: 0, y: 0, z: 0}
+  isFineSightMode: 0
+  Cam: {fileID: 7458587246772069353}
+  hitEffectPrefab: {fileID: 8638343436671209163, guid: 85032bef763dd66448203ff3e3d75d9e, type: 3}
 --- !u!82 &8649848956516622437
 AudioSource:
   m_ObjectHideFlags: 0
