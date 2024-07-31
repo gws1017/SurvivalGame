@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 using UnityEngine;
-using Unity.Netcode;
 
-public class HandController : CloseWeaponController
+public class PickaxeController : CloseWeaponController
 {
-    public static bool isActivate = false;
+    public static bool isActivate = true;
 
+    private void Start()
+    {
+        WeaponManager.currentWeapon = currentCloseWeapon.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentCloseWeapon.anim;
+    }
     void Update()
     {
         if (!IsOwner) return;
@@ -26,6 +32,7 @@ public class HandController : CloseWeaponController
 
         }
     }
+
     public override void CloseWeaponChange(CloseWeapon closeWeapon)
     {
         base.CloseWeaponChange(closeWeapon);

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class HandController : CloseWeaponController
+public class AxeController : CloseWeaponController
 {
     public static bool isActivate = false;
+
 
     void Update()
     {
@@ -26,6 +27,7 @@ public class HandController : CloseWeaponController
 
         }
     }
+
     public override void CloseWeaponChange(CloseWeapon closeWeapon)
     {
         base.CloseWeaponChange(closeWeapon);
